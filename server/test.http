@@ -1,0 +1,68 @@
+### FinMind Auth API — Test Commands (curl)
+### Use these to verify the backend is working correctly.
+
+### ───────────────────────────────────────────
+### 1. Health Check
+### ───────────────────────────────────────────
+# curl http://localhost:5000/
+
+### ───────────────────────────────────────────
+### 2. Register a new user
+### ───────────────────────────────────────────
+# curl -X POST http://localhost:5000/api/auth/register \
+#   -H "Content-Type: application/json" \
+#   -d '{"email": "test@finmind.com", "password": "password123"}' \
+#   -c cookies.txt
+
+### ───────────────────────────────────────────
+### 3. Login
+### ───────────────────────────────────────────
+# curl -X POST http://localhost:5000/api/auth/login \
+#   -H "Content-Type: application/json" \
+#   -d '{"email": "test@finmind.com", "password": "password123"}' \
+#   -c cookies.txt
+
+### ───────────────────────────────────────────
+### 4. Refresh Token (uses cookie)
+### ───────────────────────────────────────────
+# curl -X POST http://localhost:5000/api/auth/refresh \
+#   -b cookies.txt
+
+### ───────────────────────────────────────────
+### 5. Get Current User (protected — needs access token)
+### Replace <ACCESS_TOKEN> with the token from login/register.
+### ───────────────────────────────────────────
+# curl http://localhost:5000/api/auth/me \
+#   -H "Authorization: Bearer <ACCESS_TOKEN>"
+
+### ───────────────────────────────────────────
+### 6. Logout
+### ───────────────────────────────────────────
+# curl -X POST http://localhost:5000/api/auth/logout \
+#   -b cookies.txt
+
+### ═══════════════════════════════════════════
+### TRANSACTION ENDPOINTS (Phase 2)
+### All require Authorization: Bearer <ACCESS_TOKEN>
+### ═══════════════════════════════════════════
+
+### ───────────────────────────────────────────
+### 7. Create Transaction (AI-categorized)
+### ───────────────────────────────────────────
+# curl -X POST http://localhost:5000/api/transactions \
+#   -H "Content-Type: application/json" \
+#   -H "Authorization: Bearer <ACCESS_TOKEN>" \
+#   -d '{"amount": 250, "description": "Uber ride to airport"}'
+
+### ───────────────────────────────────────────
+### 8. Get All Transactions
+### ───────────────────────────────────────────
+# curl http://localhost:5000/api/transactions \
+#   -H "Authorization: Bearer <ACCESS_TOKEN>"
+
+### ───────────────────────────────────────────
+### 9. Delete a Transaction
+### Replace <TRANSACTION_ID> with a real ID.
+### ───────────────────────────────────────────
+# curl -X DELETE http://localhost:5000/api/transactions/<TRANSACTION_ID> \
+#   -H "Authorization: Bearer <ACCESS_TOKEN>"

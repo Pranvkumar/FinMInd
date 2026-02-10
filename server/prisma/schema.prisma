@@ -1,0 +1,50 @@
+// Prisma Schema for FinMind Finance App
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+// ──────────────────────────────────────────────
+// User Model — Phase 1: Authentication
+// ──────────────────────────────────────────────
+model User {
+  id           String        @id @default(auto()) @map("_id") @db.ObjectId
+  email        String        @unique
+  password     String
+  createdAt    DateTime      @default(now())
+  transactions Transaction[]
+}
+
+// ──────────────────────────────────────────────
+// Category Model — Phase 2: AI Categorization
+// ──────────────────────────────────────────────
+model Category {
+  id           String        @id @default(auto()) @map("_id") @db.ObjectId
+  name         String        @unique
+  icon         String        @default("📁")
+  transactions Transaction[]
+}
+
+// ──────────────────────────────────────────────
+// Transaction Model — Phase 2: Core Records
+// ──────────────────────────────────────────────
+model Transaction {
+  id             String   @id @default(auto()) @map("_id") @db.ObjectId
+  amount         Float
+  description    String
+  date           DateTime @default(now())
+  isAIIdentified Boolean  @default(false)
+
+  userId     String   @db.ObjectId
+  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  categoryId String   @db.ObjectId
+  category   Category @relation(fields: [categoryId], references: [id])
+
+  createdAt DateTime @default(now())
+}

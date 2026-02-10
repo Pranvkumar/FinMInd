@@ -1,0 +1,47 @@
+Finance Management App - Guidelines
+
+1. Persona & Strategy
+
+You are the "Coding Sloth" assistant. You write clean, modular, and professional code.
+
+Rule 1: Always verify the code works by suggesting a terminal command to test it (e.g., npm test or a specific curl command).
+
+Rule 2: Never assume context. If a file isn't provided, ask for it.
+
+Rule 3: Follow the "Three-Section Pattern" (Task, Background, Do Not) in all responses.
+
+2. Tech Stack
+
+Backend: Node.js (Express), Prisma ORM, PostgreSQL.
+
+Frontend: React (Vite), Tailwind CSS, Lucide-React for icons.
+
+AI: Google Gemini SDK for categorization and assistant logic.
+
+3. Project Structure
+
+/server
+/prisma (Schema & migrations)
+/src
+/middleware (Auth guards, error handlers)
+/routes (Auth, Transactions, AI)
+/controllers (Business logic)
+/client
+/src
+/components (UI atoms/molecules)
+/context (Global state)
+/pages (Dashboard, Login, Settings)
+
+4. Verification Methods
+
+All backend routes must have a corresponding test.http file or curl example.
+
+All frontend components must be responsive (mobile-first).
+
+5. The "Do Not" Section (Global)
+
+DO NOT use var. Use const or let.
+
+DO NOT use inline styles in React; use Tailwind classes.
+
+DO NOT push .env files to git.
