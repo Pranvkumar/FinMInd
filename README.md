@@ -2,6 +2,8 @@
 
 AI-powered personal finance manager with receipt scanning, smart categorization, and financial coaching.
 
+🔗 **Live Demo:** [https://finmind-client.onrender.com](https://finmind-client.onrender.com)
+
 ![Node.js](https://img.shields.io/badge/Node.js-Express_v5-339933?logo=node.js)
 ![React](https://img.shields.io/badge/React_19-Vite_7-61DAFB?logo=react)
 ![MongoDB](https://img.shields.io/badge/MongoDB-Atlas-47A248?logo=mongodb)
