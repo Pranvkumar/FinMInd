@@ -29,13 +29,20 @@ app.use(express.json());
 // Parse cookies (needed to read httpOnly refresh token)
 app.use(cookieParser());
 
-// Enable CORS for the React dev server
+// Enable CORS
+const allowedOrigins = process.env.CLIENT_URL
+  ? [process.env.CLIENT_URL, "http://localhost:5173", "http://localhost:5174"]
+  : ["http://localhost:5173", "http://localhost:5174"];
+
 app.use(
   cors({
-    origin: ["http://localhost:5173", "http://localhost:5174"],
-    credentials: true, // Allow cookies to be sent
+    origin: allowedOrigins,
+    credentials: true,
   })
 );
+
+// Trust Render's proxy (needed for secure cookies)
+app.set("trust proxy", 1);
 
 // ──────────────────────────────────────────────
 // Routes

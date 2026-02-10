@@ -40,10 +40,11 @@ const generateRefreshToken = (user) => {
  * Attaches the refresh token as a secure httpOnly cookie.
  */
 const setRefreshCookie = (res, refreshToken) => {
+  const isProduction = process.env.NODE_ENV === "production";
   res.cookie("refreshToken", refreshToken, {
     httpOnly: true,
-    secure: process.env.NODE_ENV === "production",
-    sameSite: "Strict",
+    secure: isProduction,
+    sameSite: isProduction ? "None" : "Strict",
     maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
   });
 };
